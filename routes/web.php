@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SetupController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -10,6 +11,8 @@ Route::get('/', function () {
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('setup', [SetupController::class, 'index'])->name('setup.index');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
