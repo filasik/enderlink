@@ -1,5 +1,5 @@
-# enderlink
-A Minecraft server Companion App
+# EnderLink - A Minecraft server Companion App
+<img src='public/images/enderlink.png' width=100>
 
 dev run:
 
