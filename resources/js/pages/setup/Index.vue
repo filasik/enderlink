@@ -1,11 +1,21 @@
-<script setup>
-import AppLayout from '@/layouts/AppLayout.vue';
-import { Head } from '@inertiajs/vue3';
-import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
-</script>
-
 <script>
+import AppLayout from '@/layouts/AppLayout.vue';
+import { Head as InertiaHead, router } from '@inertiajs/vue3';
+import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
+import SettingsBlock from '@/components/SettingsBlock.vue';
+import { Button } from '@/components/ui/button';
+import { Toaster } from '@/components/ui/sonner';
+import { toast } from 'vue-sonner';
+
 export default {
+    components: {
+        AppLayout,
+        InertiaHead,
+        PlaceholderPattern,
+        SettingsBlock,
+        Button,
+        Toaster,
+    },
     props: {
         settings: {
             type: Object,
@@ -21,30 +31,82 @@ export default {
             ]
         }
     },
+    data() {
+        return {
+            form: {
+                status_enabled: this.settings.status_enabled === 'true' || this.settings.status_enabled === true,
+                status_query_ip: this.settings.status_query_ip || '',
+                status_query_port: this.settings.status_query_port || '',
+            },
+            flashTimeout: null,
+            flashMessage: null,
+        };
+    },
+    watch: {
+        'flash.success'(val) {
+            if (val) {
+                this.flashMessage = val;
+                clearTimeout(this.flashTimeout);
+                this.flashTimeout = setTimeout(() => {
+                    this.flashMessage = null;
+                }, 3000);
+            }
+        }
+    },
+    computed: {
+        flash() {
+            return this.$page.props.flash || {};
+        }
+    },
+    methods: {
+        saveServerStatus() {
+            router.post(route('setup.store'), this.form, {
+                preserveScroll: true,
+            });
+            toast("Saved.", {
+                description: "Settings have been saved successfully.",
+            });
+        },
+        updateForm(values) {
+            this.form = { ...this.form, ...values };
+        }
+    },
 }
 </script>
 
 <template>
-    <Head title="App Setup" />
+    <InertiaHead title="App Setup" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+
+            <Toaster position="top-right" />
+
+            <!-- Flash message -->
+            <div v-if="flash.success" class="mb-4 rounded bg-green-100 px-4 py-2 text-green-800 border border-green-300">
+                {{ flash.success }}
+            </div>
+            <div v-if="flash.error" class="mb-4 rounded bg-red-100 px-4 py-2 text-red-800 border border-red-300">
+                {{ flash.error }}
+            </div>
+
             <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Key</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(value, key) in settings" :key="key">
-                                <td>{{ key }}</td>
-                                <td>{{ value }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+                    <div class="flex flex-col gap-4 p-4">
+                        <SettingsBlock
+                            title="Server Status"
+                            :settings="form"
+                            :fields="[
+                                { key: 'status_enabled', label: 'Enabled', type: 'toggle' },
+                                { key: 'status_query_ip', label: 'IP', type: 'text' },
+                                { key: 'status_query_port', label: 'Port', type: 'number' }
+                            ]"
+                            @update="updateForm"
+                        />
+                        <Button @click="saveServerStatus" class="cursor-pointer">
+                            Save Server Status Settings
+                        </Button>
+                    </div>
                 </div>
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <PlaceholderPattern />

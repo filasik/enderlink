@@ -13,12 +13,16 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        $settings = Settings::all();
+        $settings = Settings::all()->pluck('value', 'key')->toArray();
 
-        Settings::updateOrCreate(
-            ['key' => 'app_name'],
-            ['value' => config('app.name')]
-        );
+        // if value is 'true' or 'false', convert to boolean
+        foreach ($settings as $key => $value) {
+            if ($value === 'true') {
+                $settings[$key] = true;
+            } elseif ($value === 'false') {
+                $settings[$key] = false;
+            }
+        }
 
         return Inertia::render('setup/Index', [
             'settings' => $settings,
@@ -38,15 +42,18 @@ class SettingsController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'key' => 'required|string|max:255|unique:settings,key',
-            'value' => 'nullable|string',
+        $data = $request->only([
+            'status_enabled',
+            'status_query_ip',
+            'status_query_port',
         ]);
 
-        Settings::updateOrCreate(
-            ['key' => $validatedData['key']],
-            ['value' => $validatedData['value']]
-        );
+        foreach ($data as $key => $value) {
+            Settings::updateOrCreate(
+                ['key' => $key],
+                ['value' => is_bool($value) ? ($value ? 'true' : 'false') : $value]
+            );
+        }
 
         return redirect()->route('setup.index')->with('success', 'Settings saved successfully.');
     }
