@@ -46,6 +46,7 @@ class SettingsController extends Controller
             'status_enabled',
             'status_query_ip',
             'status_query_port',
+            'app_name',
         ]);
 
         foreach ($data as $key => $value) {

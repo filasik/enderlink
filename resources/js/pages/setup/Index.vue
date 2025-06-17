@@ -37,6 +37,7 @@ export default {
                 status_enabled: this.settings.status_enabled === 'true' || this.settings.status_enabled === true,
                 status_query_ip: this.settings.status_query_ip || '',
                 status_query_port: this.settings.status_query_port || '',
+                app_name: this.settings.app_name || '',
             },
             flashTimeout: null,
             flashMessage: null,
@@ -59,7 +60,7 @@ export default {
         }
     },
     methods: {
-        saveServerStatus() {
+        submit() {
             router.post(route('setup.store'), this.form, {
                 preserveScroll: true,
             });
@@ -103,8 +104,23 @@ export default {
                             ]"
                             @update="updateForm"
                         />
-                        <Button @click="saveServerStatus" class="cursor-pointer">
-                            Save Server Status Settings
+                        <Button @click="submit" class="cursor-pointer">
+                            Save
+                        </Button>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+                    <div class="flex flex-col gap-4 p-4">
+                        <SettingsBlock
+                            title="App Settings"
+                            :settings="form"
+                            :fields="[
+                                { key: 'app_name', label: 'App Name', type: 'text' },
+                            ]"
+                            @update="updateForm"
+                        />
+                        <Button @click="submit" class="cursor-pointer">
+                            Save
                         </Button>
                     </div>
                 </div>
