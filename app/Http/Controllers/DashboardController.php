@@ -13,15 +13,14 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // Fetch settings from DB
-        $status_enabled = Settings::where('key', 'status_enabled')->value('value') === 'true';
-        $status_query_ip = Settings::where('key', 'status_query_ip')->value('value') ?? '';
-        $status_query_port = Settings::where('key', 'status_query_port')->value('value') ?? '';
-
         return Inertia::render('Dashboard', [
-            'status_enabled' => $status_enabled,
-            'status_query_ip' => $status_query_ip,
-            'status_query_port' => $status_query_port,
+            'status_enabled' => Settings::where('key', 'status_enabled')->value('value') === 'true',
+            'status_query_ip' => Settings::where('key', 'status_query_ip')->value('value') ?? '',
+            'status_query_port' => Settings::where('key', 'status_query_port')->value('value') ?? '',
+            'discord_link' => Settings::where('key', 'discord_link')->value('value') ?? '',
+            'instagram_link' => Settings::where('key', 'instagram_link')->value('value') ?? '',
+            'tiktok_link' => Settings::where('key', 'tiktok_link')->value('value') ?? '',
+            'youtube_link' => Settings::where('key', 'youtube_link')->value('value') ?? '',
         ]);
     }
 

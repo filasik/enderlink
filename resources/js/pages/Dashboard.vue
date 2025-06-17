@@ -4,7 +4,7 @@ import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import PlaceholderPattern from '../components/PlaceholderPattern.vue';
 import ServerStatusBlock from '@/components/ServerStatusBlock.vue';
-
+import QuickLinks from '@/components/QuickLinks.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -18,6 +18,10 @@ const settings = defineProps<{
   status_enabled: boolean;
   status_query_ip: string;
   status_query_port: string | number;
+  discord_link?: string;
+  instagram_link?: string;
+  tiktok_link?: string;
+  youtube_link?: string;
 }>();
 </script>
 
@@ -32,6 +36,13 @@ const settings = defineProps<{
                         :status-enabled="settings.status_enabled"
                         :host="settings.status_query_ip"
                         :port="settings.status_query_port"
+                    />
+
+                    <QuickLinks
+                        :discord_link="settings.discord_link"
+                        :instagram_link="settings.instagram_link"
+                        :tiktok_link="settings.tiktok_link"
+                        :youtube_link="settings.youtube_link"
                     />
 
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">

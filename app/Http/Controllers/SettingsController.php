@@ -47,6 +47,10 @@ class SettingsController extends Controller
             'status_query_ip',
             'status_query_port',
             'app_name',
+            'discord_link',
+            'instagram_link',
+            'tiktok_link',
+            'youtube_link',
         ]);
 
         foreach ($data as $key => $value) {
