@@ -23,7 +23,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('login'), {
+    form.post(route('tenant.login', { tenant: tenantId }), {
         onFinish: () => form.reset('password'),
     });
 };

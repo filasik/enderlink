@@ -15,8 +15,8 @@ import { LoaderCircle, LockKeyholeOpen } from 'lucide-vue-next';
         <header class="w-full max-w-[335px] text-sm not-has-[nav]:hidden lg:max-w-4xl">
             <nav class="flex items-center justify-end gap-4">
                 <Link
-                    v-if="$page.props.auth.user"
-                    :href="route('dashboard', { tenant: $page.props.tenant?.id })"
+                    v-if="$page.props.auth.user && $page.props.tenant?.id !== undefined"
+                    :href="route('tenant.dashboard', { tenant: $page.props.tenant?.id })"
                     class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
                 >
                     Dashboard
