@@ -42,7 +42,7 @@ class HandleInertiaRequests extends Middleware
 
         return [
             ...parent::share($request),
-            'name' => Settings::find('app_name')->value,
+            'name' => Settings::find('app_name')->value ?? env('APP_NAME', 'Enderlink'),
             'quote' => ['message' => trim($message), 'author' => trim($author)],
             'auth' => [
                 'user' => $request->user(),

@@ -17,6 +17,7 @@ class DashboardController extends Controller
             'status_enabled' => Settings::where('key', 'status_enabled')->value('value') === 'true',
             'status_query_ip' => Settings::where('key', 'status_query_ip')->value('value') ?? '',
             'status_query_port' => Settings::where('key', 'status_query_port')->value('value') ?? '',
+            'links_enabled' => Settings::where('key', 'links_enabled')->value('value') === 'true',
             'discord_link' => Settings::where('key', 'discord_link')->value('value') ?? '',
             'instagram_link' => Settings::where('key', 'instagram_link')->value('value') ?? '',
             'tiktok_link' => Settings::where('key', 'tiktok_link')->value('value') ?? '',
