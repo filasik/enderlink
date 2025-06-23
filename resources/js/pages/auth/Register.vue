@@ -17,7 +17,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('register'), {
+    form.post(route('tenant.register'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
@@ -41,7 +41,7 @@ const submit = () => {
                     <InputError :message="form.errors.email" />
                 </div>
 
-                <div class="grid gap-2">
+                <div class="grid gap-2" v-if="$page.props.tenant?.id === undefined">
                     <Label for="tenant_id">Server URL Username (Tenant ID)</Label>
                     <Input id="tenant_id" type="text" required :tabindex="2" autocomplete="tenant_id" v-model="form.tenant_id" placeholder="eg. myserver" />
                     <InputError :message="form.errors.tenant_id" />
@@ -81,9 +81,9 @@ const submit = () => {
                 </Button>
             </div>
 
-            <div class="text-center text-sm text-muted-foreground">
+            <div class="text-center text-sm text-muted-foreground" v-if="$page.props.tenant?.id">
                 Already have an account?
-                <TextLink :href="route('login')" class="underline underline-offset-4" :tabindex="6">Log in</TextLink>
+                <TextLink :href="route('tenant.login', { tenant: $page.props.tenant?.id })" class="underline underline-offset-4" :tabindex="6">Log in</TextLink>
             </div>
         </form>
     </AuthBase>

@@ -7,7 +7,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
-import { LoaderCircle } from 'lucide-vue-next';
+import { LoaderCircle, LockKeyholeOpen } from 'lucide-vue-next';
+import { usePage } from '@inertiajs/vue3';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 defineProps<{
     status?: string;
@@ -25,11 +27,21 @@ const submit = () => {
         onFinish: () => form.reset('password'),
     });
 };
+
+const tenantId = usePage().props.tenant?.id || 'default';
 </script>
 
 <template>
     <AuthBase title="Log in to your account" description="Enter your email and password below to log in">
         <Head title="Log in" />
+
+        <Alert variant="default">
+            <LockKeyholeOpen />
+            <AlertTitle>{{ tenantId }}</AlertTitle>
+            <AlertDescription>
+                You're going to log in to the server with the username {{ tenantId }}.
+            </AlertDescription>
+        </Alert>
 
         <div v-if="status" class="mb-4 text-center text-sm font-medium text-green-600">
             {{ status }}
@@ -55,7 +67,7 @@ const submit = () => {
                 <div class="grid gap-2">
                     <div class="flex items-center justify-between">
                         <Label for="password">Password</Label>
-                        <TextLink v-if="canResetPassword" :href="route('password.request')" class="text-sm" :tabindex="5">
+                        <TextLink v-if="canResetPassword" :href="route('password.request', { tenant: tenantId })" class="text-sm" :tabindex="5">
                             Forgot password?
                         </TextLink>
                     </div>
@@ -86,7 +98,7 @@ const submit = () => {
 
             <div class="text-center text-sm text-muted-foreground">
                 Don't have an account?
-                <TextLink :href="route('register')" :tabindex="5">Sign up</TextLink>
+                <TextLink v-if="$page.props.tenant?.id !== undefined" :href="route('tenant.register', { tenant: $page.props.tenant?.id })" :tabindex="5">Sign up</TextLink>
             </div>
         </form>
     </AuthBase>

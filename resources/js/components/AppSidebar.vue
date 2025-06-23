@@ -20,7 +20,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Setup',
-        href: '/'+tenantId.value+'/setup',
+        href: '/'+tenantId.value+'/setup/general',
         icon: PackageOpen,
     },
 ];
