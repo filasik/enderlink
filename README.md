@@ -30,6 +30,9 @@
 - **Responsive UI:**
   Clean, modern interface with dark mode support.
 
+- **Multitenancy:**
+  Ability to register multiple projects
+
 ---
 
 ## Planned Features

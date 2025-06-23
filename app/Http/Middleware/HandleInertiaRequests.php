@@ -47,6 +47,10 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'tenant' => tenant() ? [
+                'id' => tenant('id'),
+                // 'name' => tenant('name'),
+            ] : null,
             'ziggy' => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),

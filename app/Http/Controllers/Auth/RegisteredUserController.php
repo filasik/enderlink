@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -33,12 +34,18 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'tenant_id' => 'required|string|max:50|unique:'.User::class.',tenant_id',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        Tenant::create([
+            'id' => $request->tenant_id,
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'tenant_id' => $request->tenant_id,
             'password' => Hash::make($request->password),
         ]);
 

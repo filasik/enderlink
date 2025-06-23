@@ -68,11 +68,14 @@ export default {
     computed: {
         flash() {
             return this.$page.props.flash || {};
+        },
+        tenantId() {
+            return this.$page.props.tenant?.id || '';
         }
     },
     methods: {
         submit() {
-            router.post(route('setup.store'), this.form, {
+            router.post(route('setup.store', { tenant: this.tenantId }), this.form, {
                 preserveScroll: true,
             });
             toast("Saved.", {
@@ -88,7 +91,6 @@ export default {
 
 <template>
     <AppLayout :breadcrumbs="breadcrumbs">
-        <Head title="App Setup" />
         <InertiaHead title="App Setup" />
 
         <SetupLayout :breadcrumbs="breadcrumbs">

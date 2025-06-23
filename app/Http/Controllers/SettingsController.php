@@ -47,6 +47,7 @@ class SettingsController extends Controller
             'status_query_ip',
             'status_query_port',
             'app_name',
+            'links_enabled',
             'discord_link',
             'instagram_link',
             'tiktok_link',
@@ -60,7 +61,7 @@ class SettingsController extends Controller
             );
         }
 
-        return redirect()->route('setup.index')->with('success', 'Settings saved successfully.');
+        return redirect()->route('setup.index', ['tenant' => tenant('id')])->with('success', 'Settings saved successfully.');
     }
 
     /**

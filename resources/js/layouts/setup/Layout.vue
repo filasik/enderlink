@@ -5,47 +5,49 @@ import { Separator } from '@/components/ui/separator';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 import { Folder, Cog, LayoutGrid, Link2, Database, EthernetPort, Vote, ChartLine, Webhook } from 'lucide-vue-next';
+import { computed } from 'vue';
 
+const tenantId = computed(() => usePage().props.tenant?.id);
 
 const sidebarNavItems: NavItem[] = [
     {
         title: 'General',
-        href: '/setup/general',
+        href: '/'+tenantId.value+'/setup/general',
         icon: Cog,
     },
     {
         title: 'Vote Sites',
-        href: '/setup/vote-sites',
+        href: '/'+tenantId.value+'/setup/vote-sites',
         icon: Vote,
     },
     {
         title: 'RCON',
-        href: '/setup/rcon',
+        href: '/'+tenantId.value+'/setup/rcon',
         icon: EthernetPort,
     },
     {
         title: 'Databases',
-        href: '/setup/databases',
+        href: '/'+tenantId.value+'/setup/databases',
         icon: Database,
     },
     {
         title: 'Links',
-        href: '/setup/links',
+        href: '/'+tenantId.value+'/setup/links',
         icon: Link2,
     },
     {
         title: 'Residence',
-        href: '/residence',
+        href: '/'+tenantId.value+'/setup/residence',
         icon: Folder,
     },
     {
         title: 'Server status',
-        href: '/server-status',
+        href: '/'+tenantId.value+'/server-status',
         icon: ChartLine,
     },
     {
         title: 'API',
-        href: '/setapi',
+        href: '/'+tenantId.value+'/setup/api',
         icon: Webhook,
     },
 ];

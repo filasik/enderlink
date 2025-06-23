@@ -4,19 +4,23 @@ import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import { BookOpen, Folder, LayoutGrid, PackageOpen} from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
+import { computed } from 'vue';
+
+
+const tenantId = computed(() => usePage().props.tenant?.id);
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
-        href: '/dashboard',
+        href: '/'+tenantId.value+'/dashboard',
         icon: LayoutGrid,
     },
     {
         title: 'Setup',
-        href: '/setup',
+        href: '/'+tenantId.value+'/setup',
         icon: PackageOpen,
     },
 ];
@@ -41,7 +45,7 @@ const footerNavItems: NavItem[] = [
             <SidebarMenu>
                 <SidebarMenuItem>
                     <SidebarMenuButton size="lg" as-child>
-                        <Link :href="route('dashboard')">
+                        <Link :href="route('dashboard', { tenant: tenantId })">
                             <AppLogo />
                         </Link>
                     </SidebarMenuButton>
