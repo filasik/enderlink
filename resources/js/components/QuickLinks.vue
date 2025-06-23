@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 export default {
   components: { Button },
   props: {
+    links_enabled: Boolean,
     discord_link: String,
     instagram_link: String,
     tiktok_link: String,
@@ -26,7 +27,7 @@ export default {
 </script>
 
 <template>
-  <div class="h-full flex flex-col justify-between rounded-xl border border-sidebar-border/70 dark:border-sidebar-border bg-background">
+  <div v-if="links_enabled" class="h-full flex flex-col justify-between rounded-xl border border-sidebar-border/70 dark:border-sidebar-border bg-background">
     <div class="px-4 pt-4 pb-2">
       <div class="font-semibold text-base mb-2 text-foreground">Links</div>
       <div v-if="filteredLinks.length" class="flex flex-col gap-2">

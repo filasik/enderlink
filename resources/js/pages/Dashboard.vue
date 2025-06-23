@@ -15,9 +15,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 // These should come from your backend/Inertia page props!
 const settings = defineProps<{
-  status_enabled: boolean;
+  status_enabled?: boolean;
   status_query_ip: string;
   status_query_port: string | number;
+  links_enabled: boolean;
   discord_link?: string;
   instagram_link?: string;
   tiktok_link?: string;
@@ -39,6 +40,7 @@ const settings = defineProps<{
                     />
 
                     <QuickLinks
+                        :links_enabled="settings.links_enabled"
                         :discord_link="settings.discord_link"
                         :instagram_link="settings.instagram_link"
                         :tiktok_link="settings.tiktok_link"

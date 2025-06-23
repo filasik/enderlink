@@ -14,9 +14,12 @@ class DashboardController extends Controller
     public function index()
     {
         return Inertia::render('Dashboard', [
+            // Server status / IP
             'status_enabled' => Settings::where('key', 'status_enabled')->value('value') === 'true',
             'status_query_ip' => Settings::where('key', 'status_query_ip')->value('value') ?? '',
             'status_query_port' => Settings::where('key', 'status_query_port')->value('value') ?? '',
+
+            // Links
             'links_enabled' => Settings::where('key', 'links_enabled')->value('value') === 'true',
             'discord_link' => Settings::where('key', 'discord_link')->value('value') ?? '',
             'instagram_link' => Settings::where('key', 'instagram_link')->value('value') ?? '',

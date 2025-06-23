@@ -4,14 +4,14 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { Folder, LayoutGrid, Link2, Database, EthernetPort, Vote, ChartLine, Webhook } from 'lucide-vue-next';
+import { Folder, Cog, LayoutGrid, Link2, Database, EthernetPort, Vote, ChartLine, Webhook } from 'lucide-vue-next';
 
 
 const sidebarNavItems: NavItem[] = [
     {
-        title: 'Main',
-        href: '/setup/main',
-        icon: LayoutGrid,
+        title: 'General',
+        href: '/setup/general',
+        icon: Cog,
     },
     {
         title: 'Vote Sites',
@@ -32,21 +32,6 @@ const sidebarNavItems: NavItem[] = [
         title: 'Links',
         href: '/setup/links',
         icon: Link2,
-    },
-    {
-        title: 'Vote sites',
-        href: '/vote-sites',
-        icon: Vote,
-    },
-    {
-        title: 'Links',
-        href: '/links',
-        icon: Link2,
-    },
-    {
-        title: 'Database',
-        href: '/database',
-        icon: Database,
     },
     {
         title: 'Residence',
@@ -94,8 +79,8 @@ const currentPath = page.props.ziggy?.location ? new URL(page.props.ziggy.locati
 
             <Separator class="my-6 md:hidden" />
 
-            <div class="flex-1 md:max-w-2xl">
-                <section class="max-w-xl space-y-12">
+            <div class="flex-1">
+                <section class="space-y-12">
                     <slot />
                 </section>
             </div>

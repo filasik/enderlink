@@ -5,7 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, PackageOpen, Link2, Database, EthernetPort, Vote, ChartLine, Webhook } from 'lucide-vue-next';
+import { BookOpen, Folder, LayoutGrid, PackageOpen} from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -19,41 +19,6 @@ const mainNavItems: NavItem[] = [
         href: '/setup',
         icon: PackageOpen,
     },
-    {
-        title: 'RCON',
-        href: '/rcon',
-        icon: EthernetPort,
-    },
-    {
-        title: 'Vote sites',
-        href: '/vote-sites',
-        icon: Vote,
-    },
-    {
-        title: 'Links',
-        href: '/links',
-        icon: Link2,
-    },
-    {
-        title: 'Database',
-        href: '/database',
-        icon: Database,
-    },
-    {
-        title: 'Residence',
-        href: '/residence',
-        icon: Folder,
-    },
-    {
-        title: 'Server status',
-        href: '/server-status',
-        icon: ChartLine,
-    },
-    {
-        title: 'API',
-        href: '/setapi',
-        icon: Webhook,
-    },
 ];
 
 const footerNavItems: NavItem[] = [
@@ -64,7 +29,7 @@ const footerNavItems: NavItem[] = [
     },
     {
         title: 'Documentation',
-        href: 'https://github.com/filasik/enderlink',
+        href: 'https://github.com/filasik/enderlink/wiki',
         icon: BookOpen,
     },
 ];

@@ -11,7 +11,7 @@
 ## Community & Demo
 
 - **Discord:** [Join our Discord](https://discord.gg/uTnaQrCrK6) for support, updates, and community chat.
-- **Demo:** [Live Demo (WIP)](https://demo.enderlink.app) &mdash; Coming soon!
+- **Demo:** [Live Demo (WIP)](https://enderlink.minebook.eu) &mdash; Coming soon!
 - **Hosting:** Use EnderLink as a self-hosted app or as a managed cloud-hosted multitenant project (details coming soon).
 
 ---

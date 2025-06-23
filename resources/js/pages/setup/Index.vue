@@ -31,8 +31,8 @@ export default {
                     href: '/setup',
                 },
                 {
-                    title: 'Settings',
-                    href: '/setup/settings',
+                    title: 'General',
+                    href: '/setup/general',
                 }
             ]
         }
@@ -44,6 +44,7 @@ export default {
                 status_query_ip: this.settings.status_query_ip || '',
                 status_query_port: this.settings.status_query_port || '',
                 app_name: this.settings.app_name || '',
+                links_enabled: this.settings.links_enabled === 'true' || this.settings.links_enabled === true,
                 discord_link: this.settings.discord_link || '',
                 instagram_link: this.settings.instagram_link || '',
                 tiktok_link: this.settings.tiktok_link || '',
