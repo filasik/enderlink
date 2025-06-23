@@ -31,7 +31,7 @@
   Clean, modern interface with dark mode support.
 
 - **Multitenancy:**
-  Ability to register multiple projects
+  Ability to register multiple projects into one hosted instance of EnderLink.
 
 ---
 
