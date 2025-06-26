@@ -3,7 +3,7 @@ name: Deploy na VPS - Enderlink
 on:
   push:
     branches:
-      - main  # Změňte podle potřeby, např. 'master' nebo jinou větev pro nasazení
+      - main
 
 jobs:
   deploy:
