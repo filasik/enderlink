@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('tenant.dashboard', [['tenant' => $request->user()->tenant_id]], absolute: false));
+        return redirect()->intended(route('tenant.dashboard', ['tenant' => $request->user()->tenant_id]));
     }
 
     /**
@@ -41,10 +41,17 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        $tenantId = $request->user() ? $request->user()->tenant_id : null;
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        // Redirect to tenant home page
+        if ($tenantId) {
+            return redirect()->route('tenant.home', ['tenant' => $tenantId]);
+        }
 
         return redirect('/');
     }
