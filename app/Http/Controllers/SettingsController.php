@@ -61,7 +61,7 @@ class SettingsController extends Controller
             );
         }
 
-        return redirect()->route('setup.index', ['tenant' => tenant('id')])->with('success', 'Settings saved successfully.');
+        return redirect()->route('tenant.setup.index', ['tenant' => tenant('id')])->with('success', 'Settings saved successfully.');
     }
 
     /**

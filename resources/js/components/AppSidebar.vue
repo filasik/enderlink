@@ -5,7 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, PackageOpen} from 'lucide-vue-next';
+import { BookOpen, Folder, LayoutGrid, PackageOpen, HandHeart } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 import { computed } from 'vue';
 
@@ -13,6 +13,11 @@ import { computed } from 'vue';
 const tenantId = computed(() => usePage().props.tenant?.id);
 
 const mainNavItems: NavItem[] = [
+    {
+        title: 'Welcome',
+        href: '/'+tenantId.value+'/',
+        icon: HandHeart,
+    },
     {
         title: 'Dashboard',
         href: '/'+tenantId.value+'/dashboard',

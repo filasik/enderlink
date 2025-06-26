@@ -36,7 +36,7 @@ import { LoaderCircle, LockKeyholeOpen } from 'lucide-vue-next';
                     </Link> -->
                 </template>
             </nav>
-            <Alert variant="default" v-if="$page.props.tenant?.id" class="mt-4">
+            <Alert variant="default" v-if="$page.props.tenant?.id" class="mt-4 mb-3">
                 <LockKeyholeOpen />
                 <AlertTitle>{{ $page.props.tenant?.id }}</AlertTitle>
                 <AlertDescription>
@@ -58,7 +58,7 @@ import { LoaderCircle, LockKeyholeOpen } from 'lucide-vue-next';
                 >
                     <h1 class="mb-1 font-medium">Let's get started</h1>
                     <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                        Laravel has an incredibly rich ecosystem. <br />We suggest starting with the following.
+                        EnderLink is built to help. <br />You and your community can unite in a single app.
                     </p>
                     <ul class="mb-4 flex flex-col lg:mb-6">
                         <li
@@ -132,7 +132,7 @@ import { LoaderCircle, LockKeyholeOpen } from 'lucide-vue-next';
                             >
                                 Create new EnderLink project
                             </Link>
-                            <Link v-if="$page.props.tenant?.id !== undefined"
+                            <Link v-if="$page.props.tenant?.id !== undefined && !$page.props.auth.user"
                                 :href="route('tenant.register', { tenant: $page.props.tenant?.id })"
                                 class="inline-block rounded-sm border border-black bg-[#1b1b18] px-5 py-1.5 text-sm leading-normal text-white hover:border-black hover:bg-black dark:border-[#eeeeec] dark:bg-[#eeeeec] dark:text-[#1C1C1A] dark:hover:border-white dark:hover:bg-white"
                             >
