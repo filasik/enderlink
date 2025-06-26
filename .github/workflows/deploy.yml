@@ -1,0 +1,66 @@
+name: Deploy na VPS - Enderlink
+
+on:
+  push:
+    branches:
+      - main  # Změňte podle potřeby, např. 'master' nebo jinou větev pro nasazení
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout kódu
+        uses: actions/checkout@v4
+
+      - name: Připojení na VPS a deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /home/minebook-enderlink/htdocs/enderlink.minebook.eu
+            git pull origin main
+            composer install --no-interaction --prefer-dist --optimize-autoloader
+            npm install
+            npm run build
+      - name: Send Discord notification
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{
+                 "embeds": [{
+                   "title": "🚀 New commit",
+                   "description": "new **EnderLink** version successfully deployed!",
+                   "color": 3066993,
+                   "fields": [
+                     {
+                       "name": "📝 Last commit",
+                       "value": "[${{ github.event.head_commit.message }}](${{ github.event.head_commit.url }})",
+                       "inline": false
+                     },
+                     {
+                       "name": "👤 Author",
+                       "value": "Filasik",
+                       "inline": true
+                     },
+                     {
+                       "name": "🌿 Branch",
+                       "value": "${{ github.ref_name }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "📅 Time",
+                       "value": "${{ github.event.head_commit.timestamp }}",
+                       "inline": true
+                     }
+                   ],
+                   "footer": {
+                     "text": "enderlink.minebook.eu",
+                     "icon_url": "https://enderlink.minebook.eu/images/icons/enderlink.png"
+                   },
+                   "timestamp": "${{ github.event.head_commit.timestamp }}"
+                 }]
+               }' \
+               ${{ secrets.DISCORD_WEBHOOK }}
