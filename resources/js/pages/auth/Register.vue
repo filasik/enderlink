@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, usePage } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
 
 const form = useForm({
@@ -17,9 +17,16 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('tenant.register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
+    if ((usePage().props.tenant as any)?.id === undefined) {
+        form.post(route('register'), {
+            onFinish: () => form.reset('password', 'password_confirmation'),
+        });
+    } else {
+        form.post(route('tenant.register'), {
+            onFinish: () => form.reset('password', 'password_confirmation'),
+        });
+    }
+
 };
 </script>
 

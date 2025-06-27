@@ -76,7 +76,7 @@ export default {
     },
     methods: {
         submit() {
-            router.post(route('setup.store', { tenant: this.tenantId }), this.form, {
+            router.post(route('tenant.setup.store', { tenant: this.tenantId }), this.form, {
                 preserveScroll: true,
             });
             toast("Saved.", {

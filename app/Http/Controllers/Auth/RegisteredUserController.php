@@ -53,6 +53,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return to_route('dashboard', ['tenant' => $request->tenant_id]);
+        return to_route('tenant.dashboard', ['tenant' => $request->tenant_id]);
     }
 }
