@@ -11,7 +11,7 @@
 ## Community & Demo
 
 - **Discord:** [Join our Discord](https://discord.gg/uTnaQrCrK6) for support, updates, and community chat.
-- **Demo:** [Live Demo (WIP)](https://enderlink.minebook.eu) &mdash; Coming soon!
+- **Demo:** [Live Demo](https://enderlink.minebook.eu) (deployed main branch) to explore the features of EnderLink.
 - **Hosting:** Use EnderLink as a self-hosted app or as a managed cloud-hosted multitenant project (details coming soon).
 
 ---
@@ -40,6 +40,9 @@
 - **User Management:**
   Manage user profiles, authentication, and permissions.
 
+- **Advanced authentication:**
+  Support for AuthMe (mc plugin), Discord, Microsoft, and other authentication methods.
+
 - **Server Setup:**
   Configure server settings, RCON, database connections, and integrations.
 
@@ -48,6 +51,15 @@
 
 - **API Integration:**
   Webhook and API endpoints for external integrations.
+
+- **PWA:**
+  Progressive Web App support for offline access and mobile-friendly experience.
+
+- **Community Engagement:**
+  Forums, announcements, and event management.
+
+- **Customizable Themes:**
+  Choose from various themes or create your own for a personalized look.
 
 - **Advanced Analytics:**
   Player statistics, server performance charts, and activity logs.
@@ -69,6 +81,12 @@
 
 - **Customizable Widgets:**
   Personalize the dashboard with widgets and quick actions.
+
+- **Localization:**
+  Support for multiple languages to cater to a global audience.
+
+- **SEO Optimization:**
+  Built-in SEO tools for better visibility and search rankings.
 
 - **Mobile App:**
   Companion mobile app for on-the-go management.

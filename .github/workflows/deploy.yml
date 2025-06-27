@@ -1,4 +1,4 @@
-name: Deploy na VPS - Enderlink
+name: Deploy to VPS - Enderlink
 
 on:
   push:
@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout kódu
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Připojení na VPS a deploy
+      - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -25,24 +25,25 @@ jobs:
             composer install --no-interaction --prefer-dist --optimize-autoloader
             npm install
             npm run build
-      - name: Send Discord notification
+
+      - name: Send deployment notification to Discord
         run: |
           curl -H "Content-Type: application/json" \
                -X POST \
                -d '{
                  "embeds": [{
-                   "title": "🚀 New commit",
-                   "description": "new **EnderLink** version successfully deployed!",
+                   "title": "🚀 Deployment Successful",
+                   "description": "A new version of **EnderLink** has been deployed to production.",
                    "color": 3066993,
                    "fields": [
                      {
-                       "name": "📝 Last commit",
+                       "name": "📝 Last Commit",
                        "value": "[${{ github.event.head_commit.message }}](${{ github.event.head_commit.url }})",
                        "inline": false
                      },
                      {
                        "name": "👤 Author",
-                       "value": "Filasik",
+                       "value": "${{ github.event.head_commit.author.name }}",
                        "inline": true
                      },
                      {
@@ -51,7 +52,7 @@ jobs:
                        "inline": true
                      },
                      {
-                       "name": "📅 Time",
+                       "name": "📅 Timestamp",
                        "value": "${{ github.event.head_commit.timestamp }}",
                        "inline": true
                      }
