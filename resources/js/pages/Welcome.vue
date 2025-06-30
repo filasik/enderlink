@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { LockKeyholeOpen } from 'lucide-vue-next';
 </script>
 
 <template>
@@ -16,7 +14,7 @@ import { LockKeyholeOpen } from 'lucide-vue-next';
                 <img
                     src="/images/enderlink.png"
                     alt="EnderLink Welcome Image"
-                    class="rounded-lg shadow-lg w-32 h-32 object-cover object-center bg-gray-100 dark:bg-gray-800"
+                    class="w-32 h-32 object-cover object-center"
                 />
             </div>
             <!-- Logo/Project Name -->
@@ -73,7 +71,7 @@ import { LockKeyholeOpen } from 'lucide-vue-next';
             <!-- Register/Create Project Buttons -->
             <div class="mt-8 flex flex-col md:flex-row gap-3 justify-center">
                 <Link v-if="$page.props.tenant?.id == undefined"
-                    :href="route('register', { tenant: $page.props.tenant?.id })"
+                    :href="route('register')"
                     class="inline-block rounded-lg border border-black bg-[#1b1b18] px-5 py-2 text-sm leading-normal text-white hover:bg-black hover:scale-105 transition-all duration-200
                            dark:border-gray-200 dark:bg-gray-200 dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:text-black"
                 >
