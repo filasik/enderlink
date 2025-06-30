@@ -16,6 +16,11 @@
 
 ---
 
+<img src='public/images/welcome.jpeg' width=500 alt="EnderLink Logo" />
+
+<img src='public/images/setup.jpeg' width=500 alt="EnderLink Logo" />
+
+
 ## Features
 
 - **Dashboard:**

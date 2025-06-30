@@ -37,7 +37,7 @@ Route::middleware([
 ])->prefix('/{tenant}')->group(function () {
     // Vždy Welcome, i když přihlášený nebo nepřihlášený
     Route::get('/', function () {
-        return Inertia::render('Welcome');
+        return Inertia::render('Home');
     })->name('tenant.home');
 
     // Dashboard jen pro přihlášené
