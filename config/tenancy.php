@@ -8,7 +8,8 @@ use Stancl\Tenancy\Database\Models\Tenant;
 return [
     'tenant_model' => Tenant::class,
     'id_generator' => Stancl\Tenancy\UUIDGenerator::class,
-    'tenant_parameter_name' => 'tenantId',
+    // Match the path parameter used in routes (/{tenant})
+    'tenant_parameter_name' => 'tenant',
 
     'domain_model' => Domain::class,
 

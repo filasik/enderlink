@@ -17,7 +17,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('password.email'));
+    form.post(route('tenant.password.email'));
 };
 </script>
 
@@ -47,7 +47,7 @@ const submit = () => {
 
             <div class="space-x-1 text-center text-sm text-muted-foreground">
                 <span>Or, return to</span>
-                <TextLink :href="route('tenant.login')">log in</TextLink>
+                <TextLink :href="route('tenant.login', { tenant: ($page.props.tenant as any)?.id })">log in</TextLink>
             </div>
         </div>
     </AuthLayout>

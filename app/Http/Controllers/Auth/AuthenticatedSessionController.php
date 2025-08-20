@@ -19,7 +19,7 @@ class AuthenticatedSessionController extends Controller
     public function create(Request $request): Response
     {
         return Inertia::render('auth/Login', [
-            'canResetPassword' => Route::has('password.request'),
+            'canResetPassword' => Route::has('tenant.password.request'),
             'status' => $request->session()->get('status'),
         ]);
     }
@@ -31,9 +31,10 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
+    session()->regenerate();
 
-        return redirect()->intended(route('tenant.dashboard', ['tenant' => $request->user()->tenant_id]));
+    $tenant = Auth::user()?->tenant_id;
+    return redirect()->intended(route('tenant.dashboard', ['tenant' => $tenant]));
     }
 
     /**
@@ -41,7 +42,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        $tenantId = $request->user() ? $request->user()->tenant_id : null;
+    $tenantId = Auth::user()?->tenant_id;
 
         Auth::guard('web')->logout();
 

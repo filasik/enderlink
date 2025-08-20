@@ -33,8 +33,9 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
-            'tenant_id' => 'required|string|max:50|unique:'.User::class.',tenant_id',
+            'email' => 'required|string|lowercase|email|max:255|unique:users,email',
+            // Ensure the chosen tenant id isn't already taken by another tenant
+            'tenant_id' => 'required|string|max:50|unique:tenants,id',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
