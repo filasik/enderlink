@@ -59,7 +59,14 @@ class NewPasswordController extends Controller
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
         if ($status == Password::PasswordReset) {
-            return to_route('tenant.login')->with('status', __($status));
+            // Redirect back to the tenant-specific login page
+            $tenant = $request->route('tenant');
+            // Fallback to tenancy() helper if route param not available
+            if (!$tenant && function_exists('tenant')) {
+                $tenant = tenant('id');
+            }
+
+            return to_route('tenant.login', ['tenant' => $tenant])->with('status', __($status));
         }
 
         throw ValidationException::withMessages([

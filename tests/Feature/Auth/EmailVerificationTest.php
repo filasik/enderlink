@@ -15,16 +15,18 @@ class EmailVerificationTest extends TestCase
 
     public function test_email_verification_screen_can_be_rendered()
     {
-        $user = User::factory()->unverified()->create();
+    \App\Models\Tenant::create(['id' => 'test-tenant']);
+    $user = User::factory()->unverified()->create(['tenant_id' => 'test-tenant']);
 
-        $response = $this->actingAs($user)->get('/verify-email');
+    $response = $this->actingAs($user)->get('/verify-email');
 
         $response->assertStatus(200);
     }
 
     public function test_email_can_be_verified()
     {
-        $user = User::factory()->unverified()->create();
+    \App\Models\Tenant::create(['id' => 'test-tenant']);
+    $user = User::factory()->unverified()->create(['tenant_id' => 'test-tenant']);
 
         Event::fake();
 
@@ -38,12 +40,13 @@ class EmailVerificationTest extends TestCase
 
         Event::assertDispatched(Verified::class);
         $this->assertTrue($user->fresh()->hasVerifiedEmail());
-        $response->assertRedirect(route('dashboard', absolute: false).'?verified=1');
+    $response->assertRedirect('/test-tenant/dashboard?verified=1');
     }
 
     public function test_email_is_not_verified_with_invalid_hash()
     {
-        $user = User::factory()->unverified()->create();
+    \App\Models\Tenant::create(['id' => 'test-tenant']);
+    $user = User::factory()->unverified()->create(['tenant_id' => 'test-tenant']);
 
         $verificationUrl = URL::temporarySignedRoute(
             'verification.verify',

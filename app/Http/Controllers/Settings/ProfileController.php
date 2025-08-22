@@ -18,8 +18,9 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
+        $user = Auth::user();
         return Inertia::render('settings/Profile', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'mustVerifyEmail' => $user instanceof MustVerifyEmail,
             'status' => $request->session()->get('status'),
         ]);
     }
@@ -29,15 +30,16 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = Auth::user();
+        $user->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
 
-        $request->user()->save();
+        $user->save();
 
-        return to_route('profile.edit');
+        return to_route('tenant.profile.edit', ['tenant' => $user->tenant_id]);
     }
 
     /**
@@ -49,15 +51,18 @@ class ProfileController extends Controller
             'password' => ['required', 'current_password'],
         ]);
 
-        $user = $request->user();
+    /** @var \App\Models\User $user */
+    $user = Auth::user();
+    // Capture tenant before logging out/deleting user
+    $tenantId = $request->route('tenant') ?? $user?->tenant_id;
 
         Auth::logout();
 
         $user->delete();
 
         $request->session()->invalidate();
-        $request->session()->regenerateToken();
+    $request->session()->regenerateToken();
 
-        return redirect('/');
+    return redirect()->route('tenant.home', ['tenant' => $tenantId]);
     }
 }

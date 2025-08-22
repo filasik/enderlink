@@ -67,7 +67,7 @@ const tenantId = usePage().props.tenant?.id || 'default';
                 <div class="grid gap-2">
                     <div class="flex items-center justify-between">
                         <Label for="password">Password</Label>
-                        <TextLink v-if="canResetPassword" :href="route('password.request', { tenant: tenantId })" class="text-sm" :tabindex="5">
+                        <TextLink v-if="canResetPassword" :href="route('tenant.password.request', { tenant: tenantId })" class="text-sm" :tabindex="5">
                             Forgot password?
                         </TextLink>
                     </div>
