@@ -5,6 +5,7 @@ import { Head } from '@inertiajs/vue3';
 import PlaceholderPattern from '../components/PlaceholderPattern.vue';
 import ServerStatusBlock from '@/components/ServerStatusBlock.vue';
 import QuickLinks from '@/components/QuickLinks.vue';
+import VotingSitesWidget from '@/components/VotingSitesWidget.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -23,6 +24,7 @@ const settings = defineProps<{
   instagram_link?: string;
   tiktok_link?: string;
   youtube_link?: string;
+    voting_sites: Array<{ id:number; name:string; url_template:string; pass_username:boolean; enabled:boolean; sort_order:number; }>;
 }>();
 </script>
 
@@ -46,6 +48,8 @@ const settings = defineProps<{
                         :tiktok_link="settings.tiktok_link"
                         :youtube_link="settings.youtube_link"
                     />
+
+                    <VotingSitesWidget :sites="settings.voting_sites" />
 
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <PlaceholderPattern />

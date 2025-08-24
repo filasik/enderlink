@@ -13,7 +13,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Dashboard', [
+    $votingSites = \App\Models\VotingSite::orderBy('sort_order')->get(['id','name','url_template','pass_username','enabled','sort_order']);
+    return Inertia::render('Dashboard', [
             // Server status / IP
             'status_enabled' => Settings::where('key', 'status_enabled')->value('value') === 'true',
             'status_query_ip' => Settings::where('key', 'status_query_ip')->value('value') ?? '',
@@ -25,6 +26,7 @@ class DashboardController extends Controller
             'instagram_link' => Settings::where('key', 'instagram_link')->value('value') ?? '',
             'tiktok_link' => Settings::where('key', 'tiktok_link')->value('value') ?? '',
             'youtube_link' => Settings::where('key', 'youtube_link')->value('value') ?? '',
+            'voting_sites' => $votingSites,
         ]);
     }
 

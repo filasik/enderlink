@@ -53,6 +53,18 @@ Route::middleware([
         ->middleware(['auth', 'verified'])
         ->name('tenant.setup.store');
 
+    // Voting Sites within Setup section (CRUD)
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::get('/setup/vote-sites', [\App\Http\Controllers\VotingSiteController::class, 'index'])
+            ->name('tenant.voting.index');
+        Route::post('/setup/vote-sites', [\App\Http\Controllers\VotingSiteController::class, 'store'])
+            ->name('tenant.voting.store');
+        Route::put('/setup/vote-sites/{votingSite}', [\App\Http\Controllers\VotingSiteController::class, 'update'])
+            ->name('tenant.voting.update');
+        Route::delete('/setup/vote-sites/{votingSite}', [\App\Http\Controllers\VotingSiteController::class, 'destroy'])
+            ->name('tenant.voting.destroy');
+    });
+
     // Guest routes (login, register, password reset)
     Route::middleware(['guest'])->group(function () {
         Route::get('register', [RegisteredUserController::class, 'create'])

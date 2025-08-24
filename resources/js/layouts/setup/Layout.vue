@@ -7,7 +7,7 @@ import { Link, usePage } from '@inertiajs/vue3';
 import { Folder, Cog, LayoutGrid, Link2, Database, EthernetPort, Vote, ChartLine, Webhook } from 'lucide-vue-next';
 import { computed } from 'vue';
 
-const tenantId = computed(() => usePage().props.tenant?.id);
+const tenantId = computed(() => (usePage().props as any).tenant?.id);
 
 const sidebarNavItems: NavItem[] = [
     {
@@ -59,7 +59,7 @@ const currentPath = page.props.ziggy?.location ? new URL(page.props.ziggy.locati
 
 <template>
     <div class="px-4 py-6">
-        <Heading title="Setup" description="Manage your profile and account settings" />
+    <Heading title="Setup" description="Configure project-wide settings and integrations" />
 
         <div class="flex flex-col space-y-8 md:space-y-0 lg:flex-row lg:space-y-0 lg:space-x-12">
             <aside class="w-full max-w-xl lg:w-48">

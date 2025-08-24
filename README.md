@@ -38,9 +38,14 @@
 - **Multitenancy:**
   Ability to register multiple projects into one hosted instance of EnderLink.
 
+- **Voting Sites:**
+  Add and manage voting sites to boost server popularity.
 ---
 
 ## Planned Features
+
+- **Discord Live Link:**
+  Creates a channel on you Discord server, that onclick directly opens EnderLink instance.
 
 - **User Management:**
   Manage user profiles, authentication, and permissions.
@@ -50,9 +55,6 @@
 
 - **Server Setup:**
   Configure server settings, RCON, database connections, and integrations.
-
-- **Voting Sites:**
-  Add and manage voting sites to boost server popularity.
 
 - **API Integration:**
   Webhook and API endpoints for external integrations.
@@ -208,7 +210,7 @@ The EnderLink team is constantly working on improving the application. Here's a 
 
 ### [Unreleased]
 
-### [1.0.0] - WIP
+#### [1.0.0] - WIP
 
 - Initial release of EnderLink.
 - Core features implemented: user management, server setup, voting sites, public links, server status, API integration, responsive UI.

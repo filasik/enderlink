@@ -5,12 +5,12 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, PackageOpen, HandHeart } from 'lucide-vue-next';
+import { BookOpen, Folder, LayoutGrid, PackageOpen, HandHeart, ListChecks } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 import { computed } from 'vue';
 
 
-const tenantId = computed(() => usePage().props.tenant?.id);
+const tenantId = computed(() => (usePage().props as any).tenant?.id);
 
 const mainNavItems: NavItem[] = [
     {
