@@ -15,7 +15,9 @@
         "laravel/nightwatch": "^1.7",
         "laravel/tinker": "^2.10.1",
         "stancl/tenancy": "^3.9",
-        "tightenco/ziggy": "^2.4"
+        "tightenco/ziggy": "^2.4",
+        "league/commonmark": "^2.4",
+        "ezyang/htmlpurifier": "^4.17"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

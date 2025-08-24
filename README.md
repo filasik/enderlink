@@ -40,6 +40,10 @@
 
 - **Voting Sites:**
   Add and manage voting sites to boost server popularity.
+
+- **Community Engagement:**
+  Announcements and public pages.
+
 ---
 
 ## Planned Features
@@ -61,9 +65,6 @@
 
 - **PWA:**
   Progressive Web App support for offline access and mobile-friendly experience.
-
-- **Community Engagement:**
-  Forums, announcements, and event management.
 
 - **Customizable Themes:**
   Choose from various themes or create your own for a personalized look.

@@ -49,6 +49,8 @@ class SettingsController extends Controller
             'app_name',
             'links_enabled',
             'discord_link',
+            'discord_guild_id',
+            'discord_widget_enabled',
             'instagram_link',
             'tiktok_link',
             'youtube_link',

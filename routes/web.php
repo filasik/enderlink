@@ -7,6 +7,10 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\DiscordController;
 use Inertia\Inertia;
 use Stancl\Tenancy\Middleware\InitializeTenancyByPath;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
@@ -36,9 +40,25 @@ Route::middleware([
     //PreventAccessFromCentralDomains::class,
 ])->prefix('/{tenant}')->group(function () {
     // Vždy Welcome, i když přihlášený nebo nepřihlášený
-    Route::get('/', function () {
-        return Inertia::render('Home');
-    })->name('tenant.home');
+    Route::get('/', HomeController::class)->name('tenant.home');
+    // Announcements management
+    Route::middleware(['auth','verified'])->group(function(){
+        Route::get('/setup/announcements', [AnnouncementController::class,'index'])->name('tenant.announcements.index');
+        Route::post('/setup/announcements', [AnnouncementController::class,'store'])->name('tenant.announcements.store');
+        Route::put('/setup/announcements/{announcement}', [AnnouncementController::class,'update'])->name('tenant.announcements.update');
+        Route::delete('/setup/announcements/{announcement}', [AnnouncementController::class,'destroy'])->name('tenant.announcements.destroy');
+
+        Route::get('/setup/pages', [PageController::class,'index'])->name('tenant.pages.index');
+        Route::post('/setup/pages', [PageController::class,'store'])->name('tenant.pages.store');
+        Route::put('/setup/pages/{page}', [PageController::class,'update'])->name('tenant.pages.update');
+        Route::delete('/setup/pages/{page}', [PageController::class,'destroy'])->name('tenant.pages.destroy');
+    });
+
+    // Public page display
+    Route::get('/p/{page:slug}', [PageController::class,'show'])->name('tenant.pages.show');
+
+    // Discord widget proxy
+    Route::get('/api/discord/widget', [DiscordController::class,'widget'])->name('tenant.discord.widget');
 
     // Dashboard jen pro přihlášené
     Route::get('/dashboard', [DashboardController::class, 'index'])
@@ -86,6 +106,13 @@ Route::middleware([
     });
 
     require __DIR__.'/settings.php';
+
+    // Authenticated utility routes inside tenant (logout alias)
+    Route::middleware('auth')->group(function(){
+        // Provide tenant-prefixed logout route name expected by frontend
+        Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
+            ->name('tenant.logout');
+    });
 
 });
 

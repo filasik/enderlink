@@ -47,6 +47,8 @@ export default {
                 app_name: this.settings.app_name || '',
                 links_enabled: this.settings.links_enabled === 'true' || this.settings.links_enabled === true,
                 discord_link: this.settings.discord_link || '',
+                discord_guild_id: this.settings.discord_guild_id || '',
+                discord_widget_enabled: this.settings.discord_widget_enabled === 'true' || this.settings.discord_widget_enabled === true,
                 instagram_link: this.settings.instagram_link || '',
                 tiktok_link: this.settings.tiktok_link || '',
                 youtube_link: this.settings.youtube_link || '',
@@ -150,6 +152,8 @@ export default {
                                 :fields="[
                                     { key: 'links_enabled', label: 'Enabled', type: 'toggle' },
                                     { key: 'discord_link', label: 'Discord link', type: 'text' },
+                                    { key: 'discord_guild_id', label: 'Discord Guild ID', type: 'text' },
+                                    { key: 'discord_widget_enabled', label: 'Enable Discord Widget', type: 'toggle' },
                                     { key: 'instagram_link', label: 'Instagram link', type: 'text' },
                                     { key: 'tiktok_link', label: 'TikTok link', type: 'text' },
                                     { key: 'youtube_link', label: 'YouTube link', type: 'text' },

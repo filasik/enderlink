@@ -1,40 +1,26 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
+import PublicLayout from '@/layouts/PublicLayout.vue';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { LoaderCircle, LockKeyholeOpen } from 'lucide-vue-next';
+import AnnouncementsList from '@/components/AnnouncementsList.vue';
+import DiscordWidget from '@/components/DiscordWidget.vue';
+
+const props = defineProps<{ public_announcements?: Array<{ id:number; title:string; body:string; is_pinned:boolean; published_at?:string|null }>; pages?: Array<{ title:string; slug:string }>; discord?: { guild_id?: string|null; widget_enabled:boolean } }>()
 
 
 </script>
 
 <template>
+    <PublicLayout :pages="props.pages" title="Home">
     <Head title="Home">
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </Head>
-    <div class="flex min-h-screen flex-col items-center bg-[#FDFDFC] p-6 text-[#1b1b18] lg:justify-center lg:p-8 dark:bg-[#0a0a0a]">
+    <div class="flex flex-col items-center p-6 text-[#1b1b18] lg:justify-center lg:p-8 dark:text-[#EDEDEC]">
         <header class="w-full max-w-[335px] text-sm not-has-[nav]:hidden lg:max-w-4xl">
             <nav class="flex items-center justify-end gap-4">
-                <Link
-                    v-if="$page.props.auth.user && $page.props.tenant?.id !== undefined"
-                    :href="route('tenant.dashboard', { tenant: $page.props.tenant?.id })"
-                    class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
-                >
-                    Dashboard
-                </Link>
-                <template v-else>
-                    <Link v-if="$page.props.tenant?.id !== undefined"
-                        :href="route('tenant.login', { tenant: $page.props.tenant?.id })"
-                        class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
-                    >
-                        Log in
-                    </Link>
-                    <!-- <Link
-                        :href="route('register')"
-                        class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
-                    >
-                        Register
-                    </Link> -->
-                </template>
+                
             </nav>
             <Alert variant="default" v-if="$page.props.tenant?.id" class="mt-4 mb-3">
                 <LockKeyholeOpen />
@@ -43,16 +29,22 @@ import { LoaderCircle, LockKeyholeOpen } from 'lucide-vue-next';
                     You're going to log in to the server with the username {{ $page.props.tenant?.id }}.
                 </AlertDescription>
             </Alert>
-            <Alert variant="default" v-else class="mt-4">
-                <LockKeyholeOpen />
-                <AlertTitle>Hello!</AlertTitle>
-                <AlertDescription>
-                    Create new EnderLink project to get started.
-                </AlertDescription>
-            </Alert>
         </header>
+
+        <div class="w-full max-w-4xl grid gap-6 my-8" v-if="props.public_announcements || props.discord || props.pages">
+                <div class="grid md:grid-cols-2 gap-6 w-full">
+                    <div class="rounded-xl border p-4">
+                        <AnnouncementsList :announcements="props.public_announcements||[]" title="Latest Announcements" />
+                    </div>
+                    <DiscordWidget v-if="props.discord" :guild-id="props.discord.guild_id" :enabled="props.discord.widget_enabled" />
+                </div>
+            </div>
+
         <div class="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0">
+
+            
             <main class="flex w-full max-w-[335px] flex-col-reverse overflow-hidden rounded-lg lg:max-w-4xl lg:flex-row">
+                
                 <div
                     class="flex-1 rounded-br-lg rounded-bl-lg bg-white p-6 pb-12 text-[13px] leading-[20px] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] lg:rounded-tl-lg lg:rounded-br-none lg:p-20 dark:bg-[#161615] dark:text-[#EDEDEC] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]"
                 >
@@ -80,8 +72,8 @@ import { LoaderCircle, LockKeyholeOpen } from 'lucide-vue-next';
                                 >
                                     <span>Documentation</span>
                                     <svg
-                                        width="{10}"
-                                        height="{11}"
+                                        width="10"
+                                        height="11"
                                         viewBox="0 0 10 11"
                                         fill="none"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -111,8 +103,8 @@ import { LoaderCircle, LockKeyholeOpen } from 'lucide-vue-next';
                                 >
                                     <span>Discord</span>
                                     <svg
-                                        width="{10}"
-                                        height="{11}"
+                                        width="10"
+                                        height="11"
                                         viewBox="0 0 10 11"
                                         fill="none"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -149,9 +141,10 @@ import { LoaderCircle, LockKeyholeOpen } from 'lucide-vue-next';
                         alt="EnderLink Welcome Image"
                         class="absolute inset-0 p-25 h-full w-full object-cover object-center"
                     />
-                </div>
+                                </div>
             </main>
-        </div>
+            </div>
         <div class="hidden h-14.5 lg:block"></div>
     </div>
+    </PublicLayout>
 </template>

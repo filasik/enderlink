@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { Folder, Cog, LayoutGrid, Link2, Database, EthernetPort, Vote, ChartLine, Webhook } from 'lucide-vue-next';
+import { Folder, Cog, LayoutGrid, Link2, Database, EthernetPort, Vote, ChartLine, Webhook, Megaphone, FileText } from 'lucide-vue-next';
 import { computed } from 'vue';
 
 const tenantId = computed(() => (usePage().props as any).tenant?.id);
@@ -19,6 +19,16 @@ const sidebarNavItems: NavItem[] = [
         title: 'Vote Sites',
         href: '/'+tenantId.value+'/setup/vote-sites',
         icon: Vote,
+    },
+    {
+        title: 'Announcements',
+        href: '/'+tenantId.value+'/setup/announcements',
+        icon: Megaphone,
+    },
+    {
+        title: 'Pages',
+        href: '/'+tenantId.value+'/setup/pages',
+        icon: FileText,
     },
     {
         title: 'RCON',

@@ -6,6 +6,8 @@ import PlaceholderPattern from '../components/PlaceholderPattern.vue';
 import ServerStatusBlock from '@/components/ServerStatusBlock.vue';
 import QuickLinks from '@/components/QuickLinks.vue';
 import VotingSitesWidget from '@/components/VotingSitesWidget.vue';
+import AnnouncementsList from '@/components/AnnouncementsList.vue';
+import DiscordWidget from '@/components/DiscordWidget.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -25,6 +27,8 @@ const settings = defineProps<{
   tiktok_link?: string;
   youtube_link?: string;
     voting_sites: Array<{ id:number; name:string; url_template:string; pass_username:boolean; enabled:boolean; sort_order:number; }>;
+    private_announcements: Array<{ id:number; title:string; body:string; is_pinned:boolean; published_at?:string|null }>;
+    discord: { guild_id?: string|null; widget_enabled:boolean };
 }>();
 </script>
 
@@ -51,12 +55,10 @@ const settings = defineProps<{
 
                     <VotingSitesWidget :sites="settings.voting_sites" />
 
-                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <PlaceholderPattern />
+                <div class="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border p-4">
+                    <AnnouncementsList :announcements="settings.private_announcements" title="Announcements" />
                 </div>
-                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <PlaceholderPattern />
-                </div>
+                <DiscordWidget :guild-id="settings.discord.guild_id" :enabled="settings.discord.widget_enabled" />
             </div>
             <div class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
                 <PlaceholderPattern />
